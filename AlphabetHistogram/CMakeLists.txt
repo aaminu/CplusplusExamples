@@ -1,7 +1,7 @@
 cmake_minimum_required( VERSION 3.6.2 )
 
 # For a new project it is sufficient to change only its name in the following line
-set( PROJECT_NAME letter_histogram )
+set( PROJECT_NAME AlphabetHistogram )
 
 project( ${PROJECT_NAME} )
 
