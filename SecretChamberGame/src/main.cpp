@@ -11,7 +11,7 @@ using namespace std::chrono;
 using namespace std::this_thread;
 
 static array<string, 10> board;
-const int BOARDMAX{10};
+const int BOARDMAX{9};
 const int BOARDMIN{0};
 
 void print_board();
@@ -35,7 +35,8 @@ int main()
     {
         board[i] = "..........";
     }
-    print_board();
+    //print_board();
+    sleep_for(seconds(2));
 
     /*3 Trap postions */
     int traps[3][2];
@@ -63,7 +64,7 @@ int main()
     sleep_for(seconds(2));
     print_board();
 
-    char command {0};
+    char command{0};
     int prev_p[2];
     while (true)
     {
@@ -76,6 +77,12 @@ int main()
         board[player[0]][player[1]] = 'P';
         print_board();
         sleep_for(seconds(2));
+        if ((player[0]==treasure[0]) && player[1]==treasure[1])
+        {
+            cout << "Yipeee, You have found the Treasure"<<endl;
+            cout << "Congratulations" << endl;
+            return 1;
+        }
 
     }
 
@@ -91,7 +98,6 @@ void print_board()
     }
     cout << endl;
 }
-
 
 int player_move(int *player, int size, char command)
 {
@@ -111,7 +117,7 @@ int player_move(int *player, int size, char command)
 
     case 'd':
     case 'D':
-        if (player[size - 2] == BOARDMAX-1)
+        if (player[size - 2] == BOARDMAX)
         {
             cout << "Move forfieted, can't go out of the board" << endl;
         }
@@ -120,7 +126,7 @@ int player_move(int *player, int size, char command)
             ++player[size - 2];
         }
         break;
-    
+
     case 'l':
     case 'L':
         if (player[size - 1] == BOARDMIN)
@@ -132,10 +138,10 @@ int player_move(int *player, int size, char command)
             --player[size - 1];
         }
         break;
-    
+
     case 'r':
     case 'R':
-        if (player[size - 1] == BOARDMAX-1)
+        if (player[size - 1] == BOARDMAX)
         {
             cout << "Move forfieted, can't go out of the board" << endl;
         }
