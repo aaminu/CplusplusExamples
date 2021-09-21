@@ -77,13 +77,28 @@ int main()
         board[player[0]][player[1]] = 'P';
         print_board();
         sleep_for(seconds(2));
-        if ((player[0]==treasure[0]) && player[1]==treasure[1])
+        if ((player[0] == treasure[0]) && player[1] == treasure[1])
         {
-            cout << "Yipeee, You have found the Treasure"<<endl;
+            cout << "Yipeee, you have found the treasure" << endl;
             cout << "Congratulations" << endl;
             return 1;
         }
-
+        else
+        {
+            for (int i{0}; i < 3; i++)
+            {
+                for (int j{0}; j < 2; j++)
+                {
+                    if (traps[i][0]==player[0] && traps[i][1]==player[0])
+                    {
+                        cout << "Oh no, you have Stepped into a trap" << endl;
+                        cout << "Better luck next time" << endl;
+                        return 1;
+                    }
+                }
+            }
+        }
+  
     }
 
     return 1;
