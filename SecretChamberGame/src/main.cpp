@@ -11,11 +11,12 @@ using namespace std::chrono;
 using namespace std::this_thread;
 
 static array<string, 10> board;
-const int BOARDMAX{9};
-const int BOARDMIN{0};
+const int BOARDMAX {9};
+const int BOARDMIN {0};
 
 void print_board();
 int player_move(int *player, int size, char command);
+int traps_movement(int (*traps)[3][2]);
 
 int main()
 {
@@ -50,13 +51,19 @@ int main()
         board[traps[i][0]][traps[i][1]] = 'X';
     }
 
-    /*Treasure Position*/
-    int treasure[2] = {rand() % 10, rand() % 10};
-    board[treasure[0]][treasure[1]] = 'T';
-
     /*Playter Position*/
     int player[2] = {rand() % 10, rand() % 10};
     board[player[0]][player[1]] = 'P';
+
+    /*Treasure Position*/
+    int treasure[2] = {rand() % 10, rand() % 10};
+    while (board[treasure[0]][treasure[1]] == 'X' || board[treasure[0]][treasure[1]] == 'P')
+    {
+        treasure[0] = rand() % 10;
+        treasure[1] = rand() % 10;
+    }
+    board[treasure[0]][treasure[1]] = 'T';
+
 
     /*First board Intiali*/
     cout << "Intializing board.....\n"
@@ -89,7 +96,7 @@ int main()
             {
                 for (int j{0}; j < 2; j++)
                 {
-                    if (traps[i][0]==player[0] && traps[i][1]==player[0])
+                    if (traps[i][0] == player[0] && traps[i][1] == player[1])
                     {
                         cout << "Oh no, you have Stepped into a trap" << endl;
                         cout << "Better luck next time" << endl;
@@ -98,7 +105,22 @@ int main()
                 }
             }
         }
-  
+        cout << "Trap movement" << endl;
+        sleep_for(seconds(2));
+        traps_movement(&traps);
+        print_board();
+        for (int i{0}; i < 3; i++)
+        {
+            for (int j{0}; j < 2; j++)
+            {
+                if (traps[i][0] == player[0] && traps[i][1] == player[1])
+                {
+                    cout << "Oh no, a trap has moved to your location" << endl;
+                    cout << "Better luck next time" << endl;
+                    return 1;
+                }
+            }
+        }
     }
 
     return 1;
@@ -169,6 +191,90 @@ int player_move(int *player, int size, char command)
     default:
         cout << "Invalid Move entered, move forfieted" << endl;
         break;
+    }
+    return 1;
+}
+
+int traps_movement(int (*traps)[3][2])
+{
+    int mov[3] = {rand() % 4, rand() % 4, rand() % 4}; //0:up, 1:down, 2:left, 3:right
+    int temp{0};
+
+    for (int i{0}; i < 3; i++)
+    {
+        if (mov[i] == 0)
+        {
+            temp = (*traps)[i][0];
+            //cout << temp << "-" << i<<endl;
+            if ((*traps)[i][0] == BOARDMIN && board[temp+1][(*traps)[i][1]] != 'T')
+            {
+                board[(*traps)[i][0]][(*traps)[i][1]] = '.';
+                (*traps)[i][0] = ++temp;
+                board[(*traps)[i][0]][(*traps)[i][1]] = 'X';
+            }
+            else if ((*traps)[i][0] != BOARDMIN && board[temp-1][(*traps)[i][1]] != 'T')
+            {
+                board[(*traps)[i][0]][(*traps)[i][1]] = '.';
+                (*traps)[i][0] = --temp;
+                board[(*traps)[i][0]][(*traps)[i][1]] = 'X';
+            }
+            //cout << temp << "-" << i<<endl;
+        }
+        else if (mov[i] == 1)
+        {
+            temp = (*traps)[i][0];
+            //cout << temp << "-" << i<<endl;
+            if ((*traps)[i][0] == BOARDMAX && board[temp-1][(*traps)[i][1]] != 'T')
+            {
+                board[(*traps)[i][0]][(*traps)[i][1]] = '.';
+                (*traps)[i][0] = --temp;
+                board[(*traps)[i][0]][(*traps)[i][1]] = 'X';
+
+            }
+            else if ((*traps)[i][0] != BOARDMAX && board[temp+1][(*traps)[i][1]] != 'T')
+            {
+                board[(*traps)[i][0]][(*traps)[i][1]] = '.';
+                (*traps)[i][0] = ++temp;
+                board[(*traps)[i][0]][(*traps)[i][1]] = 'X';
+            }
+            //cout << temp << "-" << i<<endl;
+        }
+        else if (mov[i] == 2)
+        {
+            temp = (*traps)[i][1];
+            //cout << temp << "-" << i<<endl;
+            if ((*traps)[i][1] == BOARDMIN && board[(*traps)[i][0]][temp+1] != 'T')
+            {
+                board[(*traps)[i][0]][(*traps)[i][1]] = '.';
+                (*traps)[i][1] = ++temp;
+                board[(*traps)[i][0]][(*traps)[i][1]] = 'X';
+            }
+            else if ((*traps)[i][1] != BOARDMIN && board[(*traps)[i][0]][temp-1] != 'T')
+            {
+                board[(*traps)[i][0]][(*traps)[i][1]] = '.';
+                (*traps)[i][1] = --temp;
+                board[(*traps)[i][0]][(*traps)[i][1]] = 'X';
+            }
+            //cout << temp << "-" << i<<endl;
+        }
+        else
+        {
+            temp = (*traps)[i][1];
+            //cout << temp << "-" << i<<endl;
+            if ((*traps)[i][1] == BOARDMAX && board[(*traps)[i][0]][temp-1] != 'T')
+            {
+                board[(*traps)[i][0]][(*traps)[i][1]] = '.';
+                (*traps)[i][1] = --temp;
+                board[(*traps)[i][0]][(*traps)[i][1]] = 'X';
+            }
+            else if ((*traps)[i][1] != BOARDMAX && board[(*traps)[i][0]][temp+1] != 'T')
+            {   
+                board[(*traps)[i][0]][(*traps)[i][1]] = '.';
+                (*traps)[i][1] = ++temp;
+                board[(*traps)[i][0]][(*traps)[i][1]] = 'X';
+            }
+            //cout << temp << "-" << i<<endl;
+        }
     }
     return 1;
 }
