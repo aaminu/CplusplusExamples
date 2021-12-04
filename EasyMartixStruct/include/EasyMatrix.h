@@ -42,6 +42,10 @@ EasyMatrix  & operator+ (const EasyMatrix &a, const EasyMatrix &b);
 
 EasyMatrix  & operator- (const EasyMatrix &a, const EasyMatrix &b);
 
-EasyMatrix AskMatrixVals( EasyMatrix &a);
+
+//others
+void AskMatrixVals( EasyMatrix &a);
+
+
 #endif /*EASYMATRIX_H_*/
 

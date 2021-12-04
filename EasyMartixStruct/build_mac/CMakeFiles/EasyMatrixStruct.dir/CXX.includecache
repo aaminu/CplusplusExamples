@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/EasyMatrix.h
+vector
+-
+
+/Users/abdulrahmanaminu/Desktop/D/play_around/c_cpp/CplusplusExamples/EasyMartixStruct/src/main.cpp
+iostream
+-
+EasyMatrix.h
+/Users/abdulrahmanaminu/Desktop/D/play_around/c_cpp/CplusplusExamples/EasyMartixStruct/src/EasyMatrix.h
+

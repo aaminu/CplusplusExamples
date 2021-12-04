@@ -1,0 +1,3 @@
+/Users/abdulrahmanaminu/Desktop/D/play_around/c_cpp/CplusplusExamples/EasyMartixStruct/build_mac/CMakeFiles/rebuild_cache.dir
+/Users/abdulrahmanaminu/Desktop/D/play_around/c_cpp/CplusplusExamples/EasyMartixStruct/build_mac/CMakeFiles/edit_cache.dir
+/Users/abdulrahmanaminu/Desktop/D/play_around/c_cpp/CplusplusExamples/EasyMartixStruct/build_mac/CMakeFiles/EasyMatrixStruct.dir
