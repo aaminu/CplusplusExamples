@@ -4,7 +4,6 @@
 
 using namespace std;
 
-ostream & operator<< (ostream & out, const EasyMatrix & matrix);
 
 int main()
 {

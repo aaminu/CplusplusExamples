@@ -35,5 +35,13 @@ struct EasyMatrix
 
 };
 
+// Overloaded operators
+ostream & operator<< (ostream & out, const EasyMatrix & matrix);
+
+EasyMatrix  & operator+ (const EasyMatrix &a, const EasyMatrix &b);
+
+EasyMatrix  & operator- (const EasyMatrix &a, const EasyMatrix &b);
+
+EasyMatrix AskMatrixVals( EasyMatrix &a);
 #endif /*EASYMATRIX_H_*/
 

@@ -6,6 +6,7 @@ using namespace std;
 
 
 //Define EasyMatrix Streamer by overloading the operator <<
+// eg 
 ostream & operator<< (ostream & out, const EasyMatrix & matrix)
 {
     out << " is a " << matrix.getRows() << "x";
