@@ -53,17 +53,38 @@ EasyMatrix  operator* (const EasyMatrix &a, const EasyMatrix &b)
     //Define a new matrix
     EasyMatrix c(rows, columns);
     
-    for( Dim k = 0; k < rows; k ++)
+    for( Dim i = 0; i < rows; i ++)
     {
-        for (Dim i = 0; i < columns; i++)
+        for (Dim j = 0; j < columns; j++)
         {
-            for (Dim j = 0; j < a.getColumns(); j++)
+            for (Dim k = 0; k < a.getColumns(); k++)
             {
-                c.fData[k][i] += (a.fData[k][j] * b.fData[j][i]);
+                c.fData[i][j] += (a.fData[i][k] * b.fData[k][j]);
             }
         }
     };
 
     return c;
     
+}
+
+
+EasyMatrix  operator+ (const EasyMatrix &a, const EasyMatrix &b)
+{
+
+    assert(a.getColumns() == b.getColumns());
+    assert(a.getRows() == b.getRows());
+
+    //Define a new matrix
+    EasyMatrix c = a;
+
+    for( Dim i = 0; i < a.getRows(); i ++)
+    {
+        for (Dim j = 0; j < b.getColumns(); j++)
+        {
+            c.fData[i][j] += b.fData[i][j];
+        }
+    };
+
+    return c;
 }
