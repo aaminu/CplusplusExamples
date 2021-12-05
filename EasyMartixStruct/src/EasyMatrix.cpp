@@ -40,3 +40,30 @@ void AskMatrixVals( EasyMatrix &a)
         }
     }
 }
+
+// Multiplying two matixs
+// matrix_a * matrix_b
+EasyMatrix  operator* (const EasyMatrix &a, const EasyMatrix &b)
+{
+    assert(a.getColumns() == b.getRows());
+
+    Dim rows = a.getRows();
+    Dim columns = b.getColumns();
+
+    //Define a new matrix
+    EasyMatrix c(rows, columns);
+    
+    for( Dim k = 0; k < rows; k ++)
+    {
+        for (Dim i = 0; i < columns; i++)
+        {
+            for (Dim j = 0; j < a.getColumns(); j++)
+            {
+                c.fData[k][i] += (a.fData[k][j] * b.fData[j][i]);
+            }
+        }
+    };
+
+    return c;
+    
+}
