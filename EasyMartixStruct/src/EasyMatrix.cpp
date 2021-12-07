@@ -88,3 +88,16 @@ EasyMatrix  operator+ (const EasyMatrix &a, const EasyMatrix &b)
 
     return c;
 }
+
+
+//Random initializaton function using the MarsXorShift
+void RandInit( EasyMatrix &m )
+{
+
+    MarsXorShift randMachine;
+
+    for (auto & row : m.fData )
+        for ( auto & data : row )
+            data = randMachine.getNext() & 0xFFFF;
+
+}

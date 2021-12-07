@@ -2,6 +2,7 @@
 #define EASYMATRIX_H_
 
 #include <vector>
+#include <ctime>
 using namespace std;
 
 //Define a Realmatrix of type vector of vecto<double>
@@ -42,9 +43,31 @@ EasyMatrix  operator+ (const EasyMatrix &a, const EasyMatrix &b);
 
 EasyMatrix  operator* (const EasyMatrix &a, const EasyMatrix &b);
 
-
 //others
 void AskMatrixVals( EasyMatrix &a);
+
+
+// Marsaglia's Xorshift random variable (provided in the Textbook)
+struct MarsXorShift
+{
+    //Start value must be different from 0
+    unsigned long value { (unsigned long) time (nullptr) & 0xFF };
+
+    // Function to get random number
+    unsigned long getNext( void )
+    {
+        value ^= value << 13;
+        value ^= value << 17;
+        value ^= value << 5;
+
+        return value;
+    }
+
+
+};
+
+// random initalizaton for Easy Matrix
+void RandInit(EasyMatrix &m);
 
 
 #endif /*EASYMATRIX_H_*/
